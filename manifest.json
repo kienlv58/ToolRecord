@@ -1,0 +1,17 @@
+{
+  "name": "Demo KLTN",
+  "version": "2",
+  "manifest_version": 2,
+  "icons": {
+    "16": "ic.png",
+    "128": "ic.png"
+  },
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "permissions": [
+    "desktopCapture","background","tabCapture","pageCapture","audioCapture","videoCapture","audio","storage","videoRecord","audioRecord"
+  ]
+}

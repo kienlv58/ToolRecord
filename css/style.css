@@ -1,0 +1,73 @@
+/*body{
+	background: #ff99ff;
+}*/
+.video-frame {
+  width: 1000px;
+  height: 720px;
+  background: rgba(0,0,0,0.25);
+}
+#video_camera{
+  width: 1000px;
+  height: 720px;
+  background: rgba(0,0,0,0.25);
+}
+video {
+  background: white url(desktop.png) center no-repeat;
+  border: 1px solid #e2e2e2;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.page-content {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+#title{
+	background: #00ff99;
+	height: 20px;
+}
+
+.toolbar {
+  background-color: #ddd;
+  max-height: 40px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+}
+
+.toolbar a {
+  margin-right: 10px;
+}
+
+.sidebar .nav {
+  position: fixed;
+  height: 100%;
+  top: 0;
+}
+
+.sidebar .nav li {
+  position: relative;
+  float: none;
+  margin-bottom: 0;
+  height: 20%;
+  text-align: center;
+}
+
+.sidebar .nav li a {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.video-frame {
+  height: 100%;
+  border: 1px solid #eee;
+}
+
+.video-button {
+  text-align: center;
+}
+
+.video-button button {
+  margin: 20px 10px;
+}
