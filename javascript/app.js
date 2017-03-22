@@ -8,7 +8,9 @@ var btn_play = document.getElementById("play");
 var btn_record = document.getElementById("record");
 var btn_download = document.getElementById("download");
 var chunks;
+var chunksCam;
 var mediaRecorder;
+var mediaRecorder2;
 var camera_stream;
 var desktop_stream;
 
@@ -58,7 +60,7 @@ function toggle() {
         getScreen.disabled = true;
         btn_record.disabled = false;
         var options = { audio: false, video: { width: 1280, height: 720 }};
-        getCam(options);
+        getCam(options,"record");
     } else {
         desktop_sharing = false;
 
@@ -129,6 +131,7 @@ function togleRecord() {
 
 function startRecord() {
     chunks = [];
+    chunksCam = [];
     var options = {mimeType: 'video/webm;codecs=vp9'};
     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
         console.log(options.mimeType + ' is not Supported');
@@ -156,7 +159,7 @@ function startRecord() {
     if(checkbox_camera.checked == true ){
         var options = { audio: checkbox_audio.checked, video: { width: 1280, height: 720 }};
         //getCamera(options);
-        getCam(options);
+        getCam(options,"record");
 
     }else if(checkbox_audio.checked == true){
         console.log("-----------------------------\n");
@@ -195,7 +198,9 @@ function handleStop(event) {
 }
 function stopRecording() {
     mediaRecorder.stop();
+    mediaRecorder2.stop();
     video_local.uri = null;
+    video_small.uri = null;
     console.log('Recorded Blobs: ', chunks);
     video_local.controls = true;
     btn_record.textContent = "Start Recording";
@@ -209,7 +214,7 @@ function download() {
     var a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = 'test.webm';
+    a.download = 'screen.webm';
     document.body.appendChild(a);
     a.click();
     setTimeout(function() {
@@ -217,12 +222,29 @@ function download() {
         window.URL.revokeObjectURL(url);
     }, 100);
     //mediaRecorder.save(allBlod,"test.webm");
+    //dowload camera
+
+    var blob2 = new Blob(chunksCam, {type: 'video/webm'});
+    var url2 = window.URL.createObjectURL(blob2);
+    var a2 = document.createElement('a');
+    a2.style.display = 'none';
+    a2.href = url;
+    a2.download = 'cam.webm';
+    document.body.appendChild(a2);
+    a2.click();
+    setTimeout(function() {
+        document.body.removeChild(a2);
+        window.URL.revokeObjectURL(url2);
+    }, 100);
 }
 
 function play() {
     var superBuffer = new Blob(chunks, {type: 'video/webm'});
     video_local.src = window.URL.createObjectURL(superBuffer);
     video_local.play();
+    var superBuffer2 = new Blob(chunksCam, {type: 'video/webm'});
+    video_small.src = window.URL.createObjectURL(superBuffer2);
+    video_small.play();
 }
 
 
@@ -232,16 +254,23 @@ var video_camera = document.getElementById("video_camera");
 
  getCamera.addEventListener('click', function (e) {
      var options = { audio: true, video: { width: 1280, height: 720 }};
-    getCam(options);
+    getCam(options,"camera");
 });
-function getCam(options) {
+function getCam(options, type) {
     console.log("da vao");
     navigator.mediaDevices.getUserMedia(options)
         .then(function (stream) {
 
             camera_stream = stream;
+            if(type === "camera")
             video_camera.src = URL.createObjectURL(stream);
-            video_small.src =  URL.createObjectURL(stream);
+            if(type === "record"){
+                video_small.src =  URL.createObjectURL(stream);
+                 mediaRecorder2 = new MediaRecorder(stream, options);
+                 mediaRecorder2.onstop = handleStop;
+                mediaRecorder2.ondataavailable = handleDataAvailable;
+                mediaRecorder2.start(10); // collect 10ms of data
+            }
             
             //video_camera.play();
         });

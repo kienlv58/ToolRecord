@@ -3,9 +3,9 @@ chrome.app.runtime.onLaunched.addListener(function() {
     id: "desktopCaptureID",
     innerBounds: {
       width: 1000,
-      height: 400,
+      height: 600,
       minWidth:700,
-      minHeight:400
+      minHeight:600
     }
   });
 });
