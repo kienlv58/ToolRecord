@@ -12,6 +12,7 @@
     }
   },
   "permissions": [
-    "desktopCapture","background","tabCapture","pageCapture","audioCapture","videoCapture","audio","storage","videoRecord","audioRecord"
+      "desktopCapture","background","tabCapture","pageCapture","audioCapture","videoCapture","audio","storage","videoRecord","audioRecord"
+  //  "desktopCapture","background","audioCapture","videoCapture","storage"
   ]
 }

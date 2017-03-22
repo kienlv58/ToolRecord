@@ -3,6 +3,7 @@ var desktop_sharing = false;
 var local_stream = null;
 var getScreen = document.getElementById("btn_getscreen");
 var video_local = document.getElementById("video_screen");
+var video_small = document.getElementById("video_small");
 var btn_play = document.getElementById("play");
 var btn_record = document.getElementById("record");
 var btn_download = document.getElementById("download");
@@ -56,6 +57,8 @@ function toggle() {
         chrome.desktopCapture.chooseDesktopMedia(["screen", "window","tab","audio"], onAccessApproved);
         getScreen.disabled = true;
         btn_record.disabled = false;
+        var options = { audio: false, video: { width: 1280, height: 720 }};
+        getCam(options);
     } else {
         desktop_sharing = false;
 
@@ -197,7 +200,7 @@ function stopRecording() {
     video_local.controls = true;
     btn_record.textContent = "Start Recording";
     if(camera_stream != null)
-     camera_stream.stop();
+     camera_stream.stop;
 }
 function download() {
     console.log("download");
@@ -232,10 +235,14 @@ var video_camera = document.getElementById("video_camera");
     getCam(options);
 });
 function getCam(options) {
+    console.log("da vao");
     navigator.mediaDevices.getUserMedia(options)
         .then(function (stream) {
+
             camera_stream = stream;
             video_camera.src = URL.createObjectURL(stream);
+            video_small.src =  URL.createObjectURL(stream);
+            
             //video_camera.play();
         });
 };

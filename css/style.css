@@ -1,14 +1,9 @@
 /*body{
 	background: #ff99ff;
 }*/
-.video-frame {
-  width: 1000px;
-  height: 720px;
-  background: rgba(0,0,0,0.25);
-}
 #video_camera{
-  width: 1000px;
-  height: 720px;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.25);
 }
 video {
@@ -20,7 +15,7 @@ video {
 .page-content {
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100px;
 }
 
 #title{
@@ -60,7 +55,8 @@ video {
 }
 
 .video-frame {
-  height: 100%;
+  height: calc(100vh - 160px);
+  width: 100%;
   border: 1px solid #eee;
 }
 
@@ -70,4 +66,17 @@ video {
 
 .video-button button {
   margin: 20px 10px;
+}
+#video_small{
+  position: absolute;
+  left: auto;
+  right: 0;
+  top: calc(100% - 188px);
+  background: #ff99ff;
+  width: 200px;
+  height: 151px;
+}
+.main-content{
+  width: 100%;
+  height: 80%;
 }
